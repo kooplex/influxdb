@@ -1,0 +1,28 @@
+version: '2.0'
+services:
+  ##PREFIX##-##MODULE_NAME##:
+    container_name: ##PREFIX##-##MODULE_NAME##
+    image: influxdb
+    environment:
+      - domain=##OUTERHOST##
+      - INFLUXDB_DB=db0
+      - INFLUXDB_ADMIN_USER=admin 
+      - INFLUXDB_ADMIN_PASSWORD=supersecretpassword 
+      - INFLUXDB_USER=auser
+      - INFLUXDB_USER_PASSWORD=secretpassword 
+    networks:
+      - ##PREFIX##-net
+    volumes:
+      - ##PREFIX##-##MODULE_NAME##-data:/var/lib/influxdb/:rw
+      - ##PREFIX##-##MODULE_NAME##-log:/var/log/influxdb/:rw
+    restart: always
+
+networks:
+  ##PREFIX##-net:
+    external: true
+
+volumes:
+  ##PREFIX##-##MODULE_NAME##-data:
+    external: true
+  ##PREFIX##-##MODULE_NAME##-log:
+    external: true
